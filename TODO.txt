@@ -1,0 +1,19 @@
+﻿Package: Honeyd-Viz
+Version: 0.2
+Author: ikoniaris
+Website: bruteforce.gr/honeyd-viz
+
+
+TODO for new versions:
++ Seperate HTML and PHP where possible, tidy up code!
++ Graphs (.png) creation should be moved to xxx-generator for each component (or all in one!)
++ Use new version of QGoogleVisualAPI and generate more graphs (eg GeoMap instead of IntensityMap?)
++ Include sample Apache configuration (unless uploaded to /var/www/)
++ Add MySQL dump/backup function (security risk?)
++ Move project to sf.net/googlecode.com/github.com (next milestone version)
++ Option to use local/offline geolocation service and not geoplugin, see: https://www.maxmind.com/app/support
+
+
+DONE:
++ Initial version release!
++ Clean honeyd-viz-generator from kippo queries

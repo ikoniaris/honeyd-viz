@@ -1,0 +1,41 @@
+﻿<?php
+#Package: Honeyd-Viz
+#Version: 0.2
+#Author: ikoniaris
+#Website: bruteforce.gr/honeyd-viz
+
+#You will have to change the following four definitions 
+#from the default values to the correct ones, according
+#to your MySQL server instance. When you populated your
+#database using the Honeyd2MySQL (bruteforce.gr/honeyd2mysql)
+#script, you should have created a MySQL user for the job.
+define('DB_HOST', 'localhost');
+define('DB_USER', 'username');
+define('DB_PASS', 'password');
+define('DB_NAME', 'database');
+
+#Exclusions/filtering: you might want to filter certain
+#IPs/subnets from your results. This is required for the 
+#Honeyd-Geo component. If your honeyd instance is located 
+#inside a home LAN, chances are that various UDP/ICMP
+#connections from your other hosts or your router have
+#been recorded. You can use a wildcard with the '%' symbol.
+#Example: 192.168.%
+define('EXCLUDE_FILTER', '192.168.%');
+
+#The following value determines whether Honeyd-Viz would
+#automatically check if a newer version is available for download.
+#You can inspect the function at include/misc/versionCheck.php.
+#It works by comparing the latest version number that resides 
+#in a text file uploaded on Honeyd-Viz's website against the 
+#'VERSION' definition inside versionCheck.php. If the local
+#number is lower than the online/remote one, you get the message.
+#While in theory you can trust the remote website, I realise that
+#you might think this procedure poses a risk to the privacy of 
+#your honeypot's IP address, because it is being transmitted and 
+#logged while retrieving the remote text file. For this reason,
+#the following value ensures that having the update checking 
+#feature enabled is your choice and not forced.
+#Change NO to YES if you want to enable it.
+define('UPDATE_CHECK', 'NO');
+?>
