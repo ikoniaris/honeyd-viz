@@ -1,4 +1,4 @@
-honeyd-viz
+Honeyd-Viz
 ==========
 
-Visualize statistics from a Honeyd honeypot 
+Honeyd-Viz is a full featured script to visualize statistics from a Honeyd honeypot.
