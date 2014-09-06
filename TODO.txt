@@ -10,10 +10,10 @@ TODO for new versions:
 + Use new version of QGoogleVisualAPI and generate more graphs (eg GeoMap instead of IntensityMap?)
 + Include sample Apache configuration (unless uploaded to /var/www/)
 + Add MySQL dump/backup function (security risk?)
-+ Move project to sf.net/googlecode.com/github.com (next milestone version)
 + Option to use local/offline geolocation service and not geoplugin, see: https://www.maxmind.com/app/support
 
 
 DONE:
 + Initial version release!
 + Clean honeyd-viz-generator from kippo queries
++ Move project to sf.net/googlecode.com/github.com (next milestone version)
