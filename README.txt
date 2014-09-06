@@ -23,7 +23,8 @@ cd /var/www
 tar xvf honeyd-viz-VERSION.tar --no-same-permissions
 cd honeyd-viz
 chmod 777 generated-graphs
-vi config.php #enter the appropriate values
+cp config.php.dist config.php
+nano config.php #enter the appropriate values
 
 Browse to http://your-server/honeyd-viz to generate the statistics.
 
