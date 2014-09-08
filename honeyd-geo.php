@@ -194,9 +194,9 @@ if (count($rows)) {
         echo '<td><a href="http://www.dshield.org/ipinfo.html?ip=' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/dshield.ico"/></a>'
         . '<a href="http://www.ipvoid.com/scan/' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/ipvoid.png"/></a>'
         . '<a href="http://www.robtex.com/ip/' . $row['source_ip'] . '.html" target="_blank"><img class=icon" src="images/robtex.ico"/></a>'
-        . '<a href="http://www.mcafee.com/threat-intelligence/ip/default.aspx?ip=' . $row['ip'] . '" target="_blank"><img class="icon" src="images/mcafee.ico"/></a>'
-        . '<a href="http://www.ip-adress.com/ip_tracer/' . $row['ip'] . '" target="_blank"><img class="icon" src="images/ip_tracer.png"/></a>'
-        . '<a href="https://www.virustotal.com/en/ip-address/' . $row['ip'] . '/information/" target="_blank"><img class="icon" src="images/virustotal.ico"/></a></td>';
+        . '<a href="http://www.mcafee.com/threat-intelligence/ip/default.aspx?ip=' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/mcafee.ico"/></a>'
+        . '<a href="http://www.ip-adress.com/ip_tracer/' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/ip_tracer.png"/></a>'
+        . '<a href="https://www.virustotal.com/en/ip-address/' . $row['source_ip'] . '/information/" target="_blank"><img class="icon" src="images/virustotal.ico"/></a></td>';
         echo '</td></tr>';
 
         //Lastly, we increase the index used by maps to indicate the next row,
