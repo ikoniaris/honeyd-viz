@@ -34,7 +34,9 @@ table tbody td{
 	}
 
 table td img.icon {
-float:left;
+    float:left;
+    width: 16px;
+    height: 16px;
 }
 
 table thead th, table tbody td{
