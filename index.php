@@ -75,6 +75,7 @@
             <p><strong>CHANGES:</strong></p>
 
             <p>Version 0.3:<br/>+ Switched all SQL operations to RedBeanPHP library.<br/>+ Cleaned and tidied up code.
+                <br/>+ Added 3 more IP lookup tools.
                 <br/>+ Fixed Google Map rendering issue (Honeyd-Geo).</p>
 
             <p>Version 0.2:<br/>+ Cleaned honeyd-viz-generator.php.<br/>+ Added most connections per day chart.
