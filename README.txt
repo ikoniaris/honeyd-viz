@@ -10,10 +10,12 @@ for Google’s Visualization API by Thomas Schäfer, RedBeanPHP library by Gabor
 and geoPlugin’s geolocation technology (geoplugin.com).
 
 REQUIREMENTS:
-1. A MySQL database must have been setup and populated using Honeyd2MySQL script
-from bruteforce.gr/honeyd2mysql which was written specifically for this purpose.
-2. You need to have “php5-gd” and “php5-mysql” packages installed. On Ubuntu/Debian:
-apt-get update && apt-get install -y php5-gd php5-mysql
+1. A MySQL database must have been setup and populated using the Honeyd2MySQL script.
+2. PHP version 5.3.4 or higher.
+3. The following packages: "libapache2-mod-php5", "php5-mysql", "php5-gd".
+
+On Ubuntu/Debian:
+apt-get update && apt-get install -y libapache2-mod-php5 php5-mysql php5-gd php5-curl
 /etc/init.d/apache2 restart
 
 QUICK INSTALLATION:

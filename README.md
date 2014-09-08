@@ -9,8 +9,9 @@ and geoPlugin’s geolocation technology (geoplugin.com).
 
 REQUIREMENTS:
 -------------
-1. PHP version 5.3.4 or higher.
-2. The following packages: _libapache2-mod-php5_, _php5-mysql_, _php5-gd_.
+1. A MySQL database must have been setup and populated using the <a title="Honeyd2MySQL" href="http://bruteforce.gr/honeyd2mysql">Honeyd2MySQL</a> script.
+2. PHP version 5.3.4 or higher.
+3. The following packages: _libapache2-mod-php5_, _php5-mysql_, _php5-gd_.
 
 On Ubuntu/Debian:
 > apt-get update && apt-get install -y libapache2-mod-php5 php5-mysql php5-gd
