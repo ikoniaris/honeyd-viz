@@ -20,7 +20,7 @@
 <!-- ####################################################################################################### -->
 <div class="wrapper">
     <div id="topbar">
-        <div class="fl_left">Version: 0.2 | Website: <a
+        <div class="fl_left">Version: 0.3 | Website: <a
                 href="http://bruteforce.gr/honeyd-viz">bruteforce.gr/honeyd-viz</a></div>
         <br class="clear"/>
     </div>
@@ -74,8 +74,11 @@
 
             <p><strong>CHANGES:</strong></p>
 
-            <p>Version 0.2:<br/>+ Cleaned honeyd-viz-generator.php.<br/>+ Added most connections per day chart.<br/>+
-                Added connections per day chart.<br/>+ Added connections per week chart.</p>
+            <p>Version 0.3:<br/>+ Switched all SQL operations to RedBeanPHP library.<br/>+ Cleaned and tidied up code.
+                <br/>+ Fixed Google Map rendering issue (Honeyd-Geo).</p>
+
+            <p>Version 0.2:<br/>+ Cleaned honeyd-viz-generator.php.<br/>+ Added most connections per day chart.
+                <br/>+ Added connections per day chart.<br/>+ Added connections per week chart.</p>
 
             <p>Version 0.1:<br/>+ Initial version.</p>
 
@@ -93,7 +96,8 @@
 <!-- ####################################################################################################### -->
 <div class="wrapper">
     <div id="copyright">
-        <p class="fl_left">Copyright &copy; 2012 - All Rights Reserved - <a href="http://bruteforce.gr/honeyd-viz">Honeyd-Viz</a>
+        <p class="fl_left">Copyright &copy; 2012 - 2014 - All Rights Reserved - <a
+                href="http://bruteforce.gr/honeyd-viz">Honeyd-Viz</a>
         </p>
 
         <p class="fl_right">Thanks to <a href="http://www.os-templates.com/" title="Free Website Templates">OS
