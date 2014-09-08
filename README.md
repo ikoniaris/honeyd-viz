@@ -44,10 +44,3 @@ Note 1: If you are on a VPS/server and don't want to use the default Apache docu
 
 Note 2: To fully use the geolocation features (Intensity Map) you will need to give CREATE
 		TEMPORARY TABLES rights to your honeyd database user (most likely it has already been done).
-
-Note 3: Honeyd-Geo component might display a warning pop-up after rendering the Google Map.
-		You can either ignore it because it doesn't really affect the functionality or remove it by
-		generating a Google Maps API key (version 2) per the link instructions and putting it in
-		honeyd-viz/include/qgooglevisualapi/QApikeyGoogleGraph.class.php, in the form of:
-		const KEY = “http://maps.google.com/maps?file=api&v=2&key=XXXXXXXXXXXXXXXXXXXXXXXX”;
-		(make sure to remove the '{' and '}' from the key)
