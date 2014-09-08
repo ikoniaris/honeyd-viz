@@ -13,6 +13,7 @@ define('DB_HOST', 'localhost');
 define('DB_USER', 'username');
 define('DB_PASS', 'password');
 define('DB_NAME', 'database');
+define('DB_PORT', '3306');
 
 #Exclusions/filtering: you might want to filter certain
 #IPs/subnets from your results. This is required for the 
