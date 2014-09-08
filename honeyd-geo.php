@@ -49,38 +49,33 @@
 #Author: ikoniaris
 #Website: bruteforce.gr/honeyd-viz
 
-include_once('include/libchart/classes/libchart.php');
-include_once('include/qgooglevisualapi/config.inc.php');
-include_once('include/misc/ip2host.php');
+require_once('include/libchart/classes/libchart.php');
+require_once('include/qgooglevisualapi/config.inc.php');
+require_once('include/misc/ip2host.php');
 require_once('include/geoplugin/geoplugin.class.php');
+require_once('include/rb.php');
 require_once('config.php');
 
 //We initialize the geoplugin component (used below to decode IPs)
 $geoplugin = new geoPlugin();
 
 //Let's connect to the database
-$db_conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME); //host, username, password, database
-
-if (mysqli_connect_errno()) {
-    echo 'Error connecting to the database: ' . mysqli_connect_error();
-    exit();
-}
+R::setup('mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
 
 //-----------------------------------------------------------------------------------------------------------------
 //NUMBER OF CONNECTIONS PER IP
 //-----------------------------------------------------------------------------------------------------------------
 $exclude_filter = EXCLUDE_FILTER;
-$db_query = 'SELECT source_ip, COUNT(source_ip) '
-    . "FROM connections "
-    . "WHERE source_ip NOT LIKE '$exclude_filter' "
-    . "GROUP BY source_ip "
-    . "ORDER BY COUNT(source_ip) DESC "
-    . "LIMIT 10 ";
+$db_query = "SELECT source_ip, COUNT(source_ip)
+  FROM connections
+  WHERE source_ip NOT LIKE '$exclude_filter'
+  GROUP BY source_ip
+  ORDER BY COUNT(source_ip) DESC
+  LIMIT 10 ";
 
-$result = $db_conn->query($db_query);
-//echo 'Found '.$result->num_rows.' records';
+$rows = R::getAll($db_query);
 
-if ($result->num_rows > 0) {
+if (count($rows)) {
     //We create a new vertical bar chart, a new pie chart and initialize the dataset
     $verticalChart = new VerticalBarChart(600, 300);
     $pieChart = new PieChart(600, 300);
@@ -120,8 +115,8 @@ if ($result->num_rows > 0) {
     //We create a temporary table in the database where we will store the IPs along with their #probes
     //and the corresponding country code, otherwise the Intensity Map won't work, because we need to
     //GROUP BY country code and SUM the #Probers per country
-    $temp_table = 'CREATE TEMPORARY TABLE temp_ip (ip VARCHAR(12), counter INT, country VARCHAR(2))';
-    $temp_table_execute = $db_conn->query($temp_table);
+    $temp_table_sql = 'CREATE TEMPORARY TABLE temp_ip (ip VARCHAR(12), counter INT, country VARCHAR(2))';
+    R::exec($temp_table_sql);
 
     //We create a dummy counter to use for the markers' tooltip inside Google Map like: IP 3/10
     //We use the same counter for the IP <table> as well
@@ -141,7 +136,7 @@ if ($result->num_rows > 0) {
     echo '<th>Latitude</th>';
     echo '<th>Longitude</th>';
     echo '<th>Hostname</th>';
-    echo '<th>Lookup</th>';
+    echo '<th colspan="9">IP Lookup</th>';
     echo '</tr></thead><tbody>';
 
     //We need to add data on the correct Map columns. The columns are always 0 or 1 or 2 for every repetition
@@ -150,7 +145,7 @@ if ($result->num_rows > 0) {
     $col = 0;
 
     //For every row returned from the database...
-    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+    foreach ($rows as $row) {
         //We call the geoplugin service to get the geolocation data for the ip
         $geoplugin->locate($row['source_ip']);
 
@@ -181,8 +176,8 @@ if ($result->num_rows > 0) {
         $ip = $row['source_ip'];
         $ip_count = $row['COUNT(source_ip)'];
         $CC = $geoplugin->countryCode;
-        $country_query = "INSERT INTO temp_ip VALUES('$ip', '$ip_count', '$CC')";
-        $country_query_execute = $db_conn->query($country_query);
+        $country_query_sql = "INSERT INTO temp_ip VALUES('$ip', '$ip_count', '$CC')";
+        R::exec($country_query_sql);
 
         //For every row returned from the database we create a new table row with the data as columns
         echo '<tr class="light">';
@@ -196,9 +191,15 @@ if ($result->num_rows > 0) {
         echo '<td>' . $geoplugin->latitude . '</td>';
         echo '<td>' . $geoplugin->longitude . '</td>';
         echo '<td>' . get_host($row['source_ip']) . '</td>';
-        echo '<td><a href="http://www.dshield.org/ipinfo.html?ip=' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/dshield.ico"/></a>'
-            . '<a href="http://www.ipvoid.com/scan/' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/ipvoid.png"/></a>'
-            . '<a href="http://www.robtex.com/ip/' . $row['source_ip'] . '.html" target="_blank"><img class=icon" src="images/robtex.ico"/></a></td>';
+        echo '<td class="icon"><a href="http://www.dshield.org/ipinfo.html?ip=' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/dshield.ico"/></a></td>';
+        echo '<td class="icon"><a href="http://www.ipvoid.com/scan/' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/ipvoid.png"/></a></td>';
+        echo '<td class="icon"><a href="http://www.robtex.com/ip/' . $row['source_ip'] . '.html" target="_blank"><img class=icon" src="images/robtex.ico"/></a></td>';
+        echo '<td class="icon"><a href="http://www.fortiguard.com/ip_rep/index.php?data=' . $row['ip'] . '&lookup=Lookup" target="_blank"><img class="icon" src="images/fortiguard.ico"/></a></td>';
+        echo '<td class="icon"><a href="http://labs.alienvault.com/labs/index.php/projects/open-source-ip-reputation-portal/information-about-ip/?ip=' . $row['ip'] . '" target="_blank"><img class="icon" src="images/alienvault.ico"/></a></td>';
+        echo '<td class="icon"><a href="http://www.reputationauthority.org/lookup.php?ip=' . $row['ip'] . '" target="_blank"><img class="icon" src="images/watchguard.ico"/></a></td>';
+        echo '<td class="icon"><a href="http://www.mcafee.com/threat-intelligence/ip/default.aspx?ip=' . $row['ip'] . '" target="_blank"><img class="icon" src="images/mcafee.ico"/></a></td>';
+        echo '<td class="icon"><a href="http://www.ip-adress.com/ip_tracer/' . $row['ip'] . '" target="_blank"><img class="icon" src="images/ip_tracer.png"/></a></td>';
+        echo '<td class="icon"><a href="https://www.virustotal.com/en/ip-address/' . $row['ip'] . '/information/" target="_blank"><img class="icon" src="images/virustotal.ico"/></a></td>';
         echo '</tr>';
 
         //Lastly, we increase the index used by maps to indicate the next row,
@@ -240,19 +241,18 @@ if ($result->num_rows > 0) {
     echo '<br/><hr /><br />';
 
     //Lastly, we prepare the data for the Intesity Map
-    $db_query_map = 'SELECT country, SUM(counter) '
-        . "FROM temp_ip "
-        . "GROUP BY country "
-        . "ORDER BY SUM(counter) DESC ";
-    //."LIMIT 10 ";
+    $db_query_map = "SELECT country, SUM(counter)
+      FROM temp_ip
+      GROUP BY country
+      ORDER BY SUM(counter) DESC";
+    //LIMIT 10 ";
 
-    $result = $db_conn->query($db_query_map);
-    //echo 'Found '.$result->num_rows.' records';
+    $rows = R::getAll($db_query);
 
-    if ($result->num_rows > 0) {
+    if (count($rows)) {
         $col = 0; //Dummy row index
         //For every row returned from the database add the values to Intensity Map's table and intensityPieChart
-        while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+        foreach ($rows as $row) {
             $countryProbes = $row['country'] . " - " . $row['SUM(counter)'];
             $intensityDataSet->addPoint(new Point($countryProbes, $row['SUM(counter)']));
             $intensityMap->setValues(
@@ -284,7 +284,7 @@ if ($result->num_rows > 0) {
 //-----------------------------------------------------------------------------------------------------------------
 
 //Close the connection, temporary table is deleted automatically
-$db_conn->close();
+R::close();
 
 ?>
 <!-- ####################################################################################################### -->
