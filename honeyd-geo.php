@@ -193,7 +193,7 @@ if (count($rows)) {
         echo '<td>' . get_host($row['source_ip']) . '</td>';
         echo '<td><a href="http://www.dshield.org/ipinfo.html?ip=' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/dshield.ico"/></a>'
         . '<a href="http://www.ipvoid.com/scan/' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/ipvoid.png"/></a>'
-        . '<a href="http://www.robtex.com/ip/' . $row['source_ip'] . '.html" target="_blank"><img class=icon" src="images/robtex.ico"/></a>'
+        . '<a href="http://www.robtex.com/ip/' . $row['source_ip'] . '.html" target="_blank"><img class=icon" src="images/robtex.ico"/></a>';
         echo '</td></tr>';
 
         //Lastly, we increase the index used by maps to indicate the next row,
