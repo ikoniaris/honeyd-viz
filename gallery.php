@@ -26,7 +26,7 @@
 <!-- ####################################################################################################### -->
 <div class="wrapper">
     <div id="topbar">
-        <div class="fl_left">Version: 0.2 | Website: <a
+        <div class="fl_left">Version: 0.3 | Website: <a
                 href="http://bruteforce.gr/honeyd-viz">bruteforce.gr/honeyd-viz</a></div>
         <br class="clear"/>
     </div>
@@ -128,7 +128,8 @@
 <!-- ####################################################################################################### -->
 <div class="wrapper">
     <div id="copyright">
-        <p class="fl_left">Copyright &copy; 2012 - All Rights Reserved - <a href="http://bruteforce.gr/honeyd-viz">Honeyd-Viz</a>
+        <p class="fl_left">Copyright &copy; 2012 - 2014 - All Rights Reserved - <a
+                href="http://bruteforce.gr/honeyd-viz">Honeyd-Viz</a>
         </p>
 
         <p class="fl_right">Thanks to <a href="http://www.os-templates.com/" title="Free Website Templates">OS

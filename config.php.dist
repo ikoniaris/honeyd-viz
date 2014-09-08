@@ -1,6 +1,6 @@
 ﻿<?php
 #Package: Honeyd-Viz
-#Version: 0.2
+#Version: 0.3
 #Author: ikoniaris
 #Website: bruteforce.gr/honeyd-viz
 
