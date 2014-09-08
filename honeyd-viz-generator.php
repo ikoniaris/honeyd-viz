@@ -79,11 +79,11 @@ if (count($rows)) {
 //-----------------------------------------------------------------------------------------------------------------
 //NUMBER OF CONNECTIONS PER IP
 //-----------------------------------------------------------------------------------------------------------------
-$db_query = 'SELECT source_ip, COUNT(source_ip) '
-    . "FROM connections "
-    . "GROUP BY source_ip "
-    . "ORDER BY COUNT(source_ip) DESC "
-    . "LIMIT 10 ";
+$db_query = "SELECT source_ip, COUNT(source_ip)
+  FROM connections
+  GROUP BY source_ip
+  ORDER BY COUNT(source_ip) DESC
+  LIMIT 10 ";
 
 $rows = R::getAll($db_query);
 
@@ -113,12 +113,12 @@ if (count($rows)) {
 //-----------------------------------------------------------------------------------------------------------------
 //TCP CONNECTIONS PER IP
 //-----------------------------------------------------------------------------------------------------------------
-$db_query = 'SELECT source_ip, COUNT(source_ip) '
-    . "FROM connections "
-    . "WHERE proto = 'tcp' "
-    . "GROUP BY source_ip "
-    . "ORDER BY COUNT(source_ip) DESC "
-    . "LIMIT 10 ";
+$db_query = "SELECT source_ip, COUNT(source_ip)
+  FROM connections
+  WHERE proto = 'tcp'
+  GROUP BY source_ip
+  ORDER BY COUNT(source_ip) DESC
+  LIMIT 10";
 
 $rows = R::getAll($db_query);
 
@@ -148,12 +148,12 @@ if (count($rows)) {
 //-----------------------------------------------------------------------------------------------------------------
 //UDP CONNECTIONS PER IP
 //-----------------------------------------------------------------------------------------------------------------
-$db_query = 'SELECT source_ip, COUNT(source_ip) '
-    . "FROM connections "
-    . "WHERE proto = 'udp' "
-    . "GROUP BY source_ip "
-    . "ORDER BY COUNT(source_ip) DESC "
-    . "LIMIT 10 ";
+$db_query = "SELECT source_ip, COUNT(source_ip)
+  FROM connections
+  WHERE proto = 'udp'
+  GROUP BY source_ip
+  ORDER BY COUNT(source_ip) DESC
+  LIMIT 10 ";
 
 $rows = R::getAll($db_query);
 
@@ -183,12 +183,12 @@ if (count($rows)) {
 //-----------------------------------------------------------------------------------------------------------------
 //ICMP CONNECTIONS PER IP
 //-----------------------------------------------------------------------------------------------------------------
-$db_query = 'SELECT source_ip, COUNT(source_ip) '
-    . "FROM connections "
-    . "WHERE proto = 'icmp' "
-    . "GROUP BY source_ip "
-    . "ORDER BY COUNT(source_ip) DESC "
-    . "LIMIT 10 ";
+$db_query = "SELECT source_ip, COUNT(source_ip)
+  FROM connections
+  WHERE proto = 'icmp'
+  GROUP BY source_ip
+  ORDER BY COUNT(source_ip) DESC
+  LIMIT 10 ";
 
 $rows = R::getAll($db_query);
 
@@ -218,10 +218,10 @@ if (count($rows)) {
 //-----------------------------------------------------------------------------------------------------------------
 //CONNECTIONS BY DESTINATION PORTS
 //-----------------------------------------------------------------------------------------------------------------
-$db_query = 'SELECT dest_port, COUNT(dest_port), proto '
-    . "FROM connections "
-    . "GROUP BY dest_port "
-    . "ORDER BY COUNT(dest_port) DESC ";
+$db_query = "SELECT dest_port, COUNT(dest_port), proto
+  FROM connections
+  GROUP BY dest_port
+  ORDER BY COUNT(dest_port) DESC ";
 
 $rows = R::getAll($db_query);
 
@@ -249,11 +249,11 @@ if (count($rows)) {
 //-----------------------------------------------------------------------------------------------------------------
 //MOST CONNECTIONS PER DAY
 //-----------------------------------------------------------------------------------------------------------------
-$db_query = 'SELECT COUNT(*), date_time '
-    . "FROM connections "
-    . "GROUP BY DAYOFYEAR(date_time) "
-    . "ORDER BY COUNT(*) DESC "
-    . "LIMIT 20 ";
+$db_query = "SELECT COUNT(*), date_time
+  FROM connections
+  GROUP BY DAYOFYEAR(date_time)
+  ORDER BY COUNT(*) DESC
+  LIMIT 20 ";
 
 $rows = R::getAll($db_query);
 
@@ -277,10 +277,10 @@ if (count($rows)) {
 //-----------------------------------------------------------------------------------------------------------------
 //CONNECTIONS PER DAY
 //-----------------------------------------------------------------------------------------------------------------
-$db_query = 'SELECT COUNT(*), date_time '
-    . "FROM connections "
-    . "GROUP BY DAYOFYEAR(date_time) "
-    . "ORDER BY date_time ASC ";
+$db_query = "SELECT COUNT(*), date_time
+  FROM connections
+  GROUP BY DAYOFYEAR(date_time)
+  ORDER BY date_time ASC";
 
 $rows = R::getAll($db_query);
 
@@ -313,15 +313,15 @@ if (count($rows)) {
 //-----------------------------------------------------------------------------------------------------------------
 //CONNECTIONS PER WEEK
 //-----------------------------------------------------------------------------------------------------------------
-$db_query = 'SELECT COUNT(*), MAKEDATE( '
-    . "CASE "
-    . "WHEN WEEKOFYEAR(date_time) = 52 "
-    . "THEN YEAR(date_time)-1 "
-    . "ELSE YEAR(date_time) "
-    . "END, (WEEKOFYEAR(date_time) * 7)-4) AS DateOfWeek_Value "
-    . "FROM connections "
-    . "GROUP BY WEEKOFYEAR(date_time) "
-    . "ORDER BY date_time ASC";
+$db_query = "SELECT COUNT(*), MAKEDATE(
+  CASE
+  WHEN WEEKOFYEAR(date_time) = 52
+  THEN YEAR(date_time)-1
+  ELSE YEAR(date_time)
+  END, (WEEKOFYEAR(date_time) * 7)-4) AS DateOfWeek_Value
+  FROM connections
+  GROUP BY WEEKOFYEAR(date_time)
+  ORDER BY date_time ASC";
 
 
 $rows = R::getAll($db_query);
