@@ -3,9 +3,9 @@ Honeyd-Viz
 
 Honeyd-Viz is a full featured script to visualize statistics from a Honeyd honeypot.
 
-It uses the Libchart PHP chart drawing library by Jean-Marc Trémeaux,
-QGoogleVisualizationAPI PHP Wrapper for Google's Visualization API by Thomas Schäfer,
-RedBeanPHP library by Gabor de Mooij and geoPlugin's geolocation technology (geoplugin.com).
+It uses the Libchart PHP chart drawing library by Jean-Marc Trémeaux, QGoogleVisualizationAPI PHP Wrapper
+for Google’s Visualization API by Thomas Schäfer, RedBeanPHP library by Gabor de Mooij
+and geoPlugin’s geolocation technology (geoplugin.com).
 
 REQUIREMENTS:
 -------------

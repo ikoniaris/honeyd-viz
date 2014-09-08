@@ -5,9 +5,9 @@ Website: bruteforce.gr/honeyd-viz
 
 Honeyd-Viz is a full featured script to visualize statistics from a honeyd honeypot.
 
-It uses "Libchart" PHP chart drawing library by Jean-Marc Trémeaux,
-"QGoogleVisualizationAPI" PHP Wrapper for Google's Visualization API by Thomas Schäfer
-and geoPlugin geolocation technology (geoplugin.com)
+It uses the Libchart PHP chart drawing library by Jean-Marc Trémeaux, QGoogleVisualizationAPI PHP Wrapper
+for Google’s Visualization API by Thomas Schäfer, RedBeanPHP library by Gabor de Mooij
+and geoPlugin’s geolocation technology (geoplugin.com).
 
 REQUIREMENTS:
 1. A MySQL database must have been setup and populated using Honeyd2MySQL script
