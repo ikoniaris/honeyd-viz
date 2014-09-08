@@ -4,38 +4,33 @@
 #Author: ikoniaris
 #Website: bruteforce.gr/honeyd-viz
 
-include_once('include/libchart/classes/libchart.php');
+require_once('include/libchart/classes/libchart.php');
 require_once('config.php');
+require_once('include/rb.php');
+
 
 //Let's connect to the database
-$db_conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME); //host, username, password, database
-
-if (mysqli_connect_errno()) {
-    echo 'Error connecting to the database: ' . mysqli_connect_error();
-    exit();
-}
+R::setup('mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
 
 //-----------------------------------------------------------------------------------------------------------------
 //CONNECTIONS BY PROTOCOL
 //-----------------------------------------------------------------------------------------------------------------
-$db_query = 'SELECT proto, COUNT(proto) '
-    . "FROM connections "
-    . "GROUP BY proto "
-    . "ORDER BY COUNT(proto) DESC ";
+$db_query = "SELECT proto, COUNT(proto)
+  FROM connections
+  GROUP BY proto
+  ORDER BY COUNT(proto) DESC ";
 
-$result = $db_conn->query($db_query);
-//echo 'Found '.$result->num_rows.' records';
+$rows = R::getAll($db_query);
 
-if ($result->num_rows > 0) {
+if (count($rows)) {
     //We create a new vertical bar chart and initialize the dataset
     $chart = new VerticalBarChart(600, 300);
     $pie_chart = new PieChart(600, 300);
     $dataSet = new XYDataSet();
 
     //For every row returned from the database we add a new point to the dataset
-    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+    foreach ($rows as $row)
         $dataSet->addPoint(new Point($row['proto'], $row['COUNT(proto)']));
-    }
 
     //We set the bar chart's dataset and render the graph
     $chart->setDataSet($dataSet);
@@ -51,24 +46,22 @@ if ($result->num_rows > 0) {
 //-----------------------------------------------------------------------------------------------------------------
 //CONNECTIONS BY DESTINATION IP
 //-----------------------------------------------------------------------------------------------------------------
-$db_query = 'SELECT dest_ip, COUNT(dest_ip) '
-    . "FROM connections "
-    . "GROUP BY dest_ip "
-    . "ORDER BY COUNT(dest_ip) DESC ";
+$db_query = "SELECT dest_ip, COUNT(dest_ip)
+  FROM connections
+  GROUP BY dest_ip
+  ORDER BY COUNT(dest_ip) DESC";
 
-$result = $db_conn->query($db_query);
-//echo 'Found '.$result->num_rows.' records';
+$rows = R::getAll($db_query);
 
-if ($result->num_rows > 0) {
+if (count($rows)) {
     //We create a new vertical bar chart and initialize the dataset
     $chart = new VerticalBarChart(600, 300);
     $pie_chart = new PieChart(600, 300);
     $dataSet = new XYDataSet();
 
     //For every row returned from the database we add a new point to the dataset
-    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+    foreach ($rows as $row)
         $dataSet->addPoint(new Point($row['dest_ip'], $row['COUNT(dest_ip)']));
-    }
 
     //We set the bar chart's dataset and render the graph
     $chart->setDataSet($dataSet);
@@ -92,19 +85,17 @@ $db_query = 'SELECT source_ip, COUNT(source_ip) '
     . "ORDER BY COUNT(source_ip) DESC "
     . "LIMIT 10 ";
 
-$result = $db_conn->query($db_query);
-//echo 'Found '.$result->num_rows.' records';
+$rows = R::getAll($db_query);
 
-if ($result->num_rows > 0) {
+if (count($rows)) {
     //We create a new vertical bar chart,a new pie chart and initialize the dataset
     $chart = new VerticalBarChart(600, 300);
     $pie_chart = new PieChart(600, 300);
     $dataSet = new XYDataSet();
 
     //For every row returned from the database we add a new point to the dataset
-    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+    foreach ($rows as $row)
         $dataSet->addPoint(new Point($row['source_ip'], $row['COUNT(source_ip)']));
-    }
 
     //We set the bar chart's dataset and render the graph
     $chart->setDataSet($dataSet);
@@ -129,19 +120,17 @@ $db_query = 'SELECT source_ip, COUNT(source_ip) '
     . "ORDER BY COUNT(source_ip) DESC "
     . "LIMIT 10 ";
 
-$result = $db_conn->query($db_query);
-//echo 'Found '.$result->num_rows.' records';
+$rows = R::getAll($db_query);
 
-if ($result->num_rows > 0) {
+if (count($rows)) {
     //We create a new vertical bar chart,a new pie chart and initialize the dataset
     $chart = new VerticalBarChart(600, 300);
     $pie_chart = new PieChart(600, 300);
     $dataSet = new XYDataSet();
 
     //For every row returned from the database we add a new point to the dataset
-    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+    foreach ($rows as $row)
         $dataSet->addPoint(new Point($row['source_ip'], $row['COUNT(source_ip)']));
-    }
 
     //We set the bar chart's dataset and render the graph
     $chart->setDataSet($dataSet);
@@ -166,19 +155,17 @@ $db_query = 'SELECT source_ip, COUNT(source_ip) '
     . "ORDER BY COUNT(source_ip) DESC "
     . "LIMIT 10 ";
 
-$result = $db_conn->query($db_query);
-//echo 'Found '.$result->num_rows.' records';
+$rows = R::getAll($db_query);
 
-if ($result->num_rows > 0) {
+if (count($rows)) {
     //We create a new vertical bar chart,a new pie chart and initialize the dataset
     $chart = new VerticalBarChart(600, 300);
     $pie_chart = new PieChart(600, 300);
     $dataSet = new XYDataSet();
 
     //For every row returned from the database we add a new point to the dataset
-    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+    foreach ($rows as $row)
         $dataSet->addPoint(new Point($row['source_ip'], $row['COUNT(source_ip)']));
-    }
 
     //We set the bar chart's dataset and render the graph
     $chart->setDataSet($dataSet);
@@ -203,19 +190,17 @@ $db_query = 'SELECT source_ip, COUNT(source_ip) '
     . "ORDER BY COUNT(source_ip) DESC "
     . "LIMIT 10 ";
 
-$result = $db_conn->query($db_query);
-//echo 'Found '.$result->num_rows.' records';
+$rows = R::getAll($db_query);
 
-if ($result->num_rows > 0) {
+if (count($rows)) {
     //We create a new vertical bar chart,a new pie chart and initialize the dataset
     $chart = new VerticalBarChart(600, 300);
     $pie_chart = new PieChart(600, 300);
     $dataSet = new XYDataSet();
 
     //For every row returned from the database we add a new point to the dataset
-    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+    foreach ($rows as $row)
         $dataSet->addPoint(new Point($row['source_ip'], $row['COUNT(source_ip)']));
-    }
 
     //We set the bar chart's dataset and render the graph
     $chart->setDataSet($dataSet);
@@ -238,19 +223,17 @@ $db_query = 'SELECT dest_port, COUNT(dest_port), proto '
     . "GROUP BY dest_port "
     . "ORDER BY COUNT(dest_port) DESC ";
 
-$result = $db_conn->query($db_query);
-//echo 'Found '.$result->num_rows.' records';
+$rows = R::getAll($db_query);
 
-if ($result->num_rows > 0) {
+if (count($rows)) {
     //We create a new vertical bar chart,a new pie chart and initialize the dataset
     $chart = new VerticalBarChart(600, 300);
     $pie_chart = new PieChart(600, 300);
     $dataSet = new XYDataSet();
 
     //For every row returned from the database we add a new point to the dataset
-    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+    foreach ($rows as $row)
         $dataSet->addPoint(new Point($row['dest_port'] . " / " . $row['proto'], $row['COUNT(dest_port)']));
-    }
 
     //We set the bar chart's dataset and render the graph
     $chart->setDataSet($dataSet);
@@ -272,19 +255,17 @@ $db_query = 'SELECT COUNT(*), date_time '
     . "ORDER BY COUNT(*) DESC "
     . "LIMIT 20 ";
 
-$result = $db_conn->query($db_query);
-//echo 'Found '.$result->num_rows.' records';
+$rows = R::getAll($db_query);
 
-if ($result->num_rows > 0) {
+if (count($rows)) {
     //We create a new horizontal bar chart and initialize the dataset
     $chart = new HorizontalBarChart(600, 300);
     $dataSet = new XYDataSet();
 
     //For every row returned from the database we add a new point to the dataset
-    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+    foreach ($rows as $row)
         $dataSet->addPoint(new Point(date('d-m-Y', strtotime($row['date_time'])), $row['COUNT(*)']));
-        //$dataSet->addPoint(new Point(date('l, d-m-Y', strtotime($row['date_time'])), $row['COUNT(*)']));
-    }
+    //$dataSet->addPoint(new Point(date('l, d-m-Y', strtotime($row['date_time'])), $row['COUNT(*)']));
 
     //We set the horizontal chart's dataset and render the graph
     $chart->setDataSet($dataSet);
@@ -301,10 +282,9 @@ $db_query = 'SELECT COUNT(*), date_time '
     . "GROUP BY DAYOFYEAR(date_time) "
     . "ORDER BY date_time ASC ";
 
-$result = $db_conn->query($db_query);
-//echo 'Found '.$result->num_rows.' records';
+$rows = R::getAll($db_query);
 
-if ($result->num_rows > 0) {
+if (count($rows)) {
     //We create a new line chart and initialize the dataset
     $chart = new LineChart(600, 300);
     $dataSet = new XYDataSet();
@@ -312,10 +292,10 @@ if ($result->num_rows > 0) {
     //This graph gets messed up for large DBs, so here is a simple way to limit some of the input
     $counter = 1;
     //Display date legend only every $mod rows, 25 distinct values being the optimal for a graph
-    $mod = round($result->num_rows / 25);
+    $mod = round(count($rows) / 25);
     if ($mod == 0) $mod = 1; //otherwise a division by zero might happen below
     //For every row returned from the database we add a new point to the dataset
-    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+    foreach ($rows as $row) {
         if ($counter % $mod == 0) {
             $dataSet->addPoint(new Point(date('d-m-Y', strtotime($row['date_time'])), $row['COUNT(*)']));
         } else {
@@ -344,10 +324,9 @@ $db_query = 'SELECT COUNT(*), MAKEDATE( '
     . "ORDER BY date_time ASC";
 
 
-$result = $db_conn->query($db_query);
-//echo 'Found '.$result->num_rows.' records';
+$rows = R::getAll($db_query);
 
-if ($result->num_rows > 0) {
+if (count($rows)) {
     //We create a new line chart and initialize the dataset
     $chart = new LineChart(600, 300);
     $dataSet = new XYDataSet();
@@ -355,10 +334,10 @@ if ($result->num_rows > 0) {
     //This graph gets messed up for large DBs, so here is a simple way to limit some of the input
     $counter = 1;
     //Display date legend only every $mod rows, 25 distinct values being the optimal for a graph
-    $mod = round($result->num_rows / 25);
+    $mod = round(count($rows) / 25);
     if ($mod == 0) $mod = 1; //otherwise a division by zero might happen below
     //For every row returned from the database we add a new point to the dataset
-    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+    foreach ($rows as $row) {
         if ($counter % $mod == 0) {
             $dataSet->addPoint(new Point(date('d-m-Y', strtotime($row['DateOfWeek_Value'])), $row['COUNT(*)']));
         } else {
@@ -383,7 +362,7 @@ if ($result->num_rows > 0) {
 //-----------------------------------------------------------------------------------------------------------------
 
 //We close the connection
-$db_conn->close();
+R::close();
 
 //And redirect to the graph presentation page
 header('location:honeyd-viz.php');
