@@ -49,11 +49,11 @@
 #Author: ikoniaris
 #Website: bruteforce.gr/honeyd-viz
 
+require_once('include/rb.php');
 require_once('include/libchart/classes/libchart.php');
 require_once('include/qgooglevisualapi/config.inc.php');
-require_once('include/misc/ip2host.php');
 require_once('include/geoplugin/geoplugin.class.php');
-require_once('include/rb.php');
+require_once('include/misc/ip2host.php');
 require_once('config.php');
 
 //We initialize the geoplugin component (used below to decode IPs)
@@ -136,7 +136,7 @@ if (count($rows)) {
     echo '<th>Latitude</th>';
     echo '<th>Longitude</th>';
     echo '<th>Hostname</th>';
-    echo '<th colspan="9">IP Lookup</th>';
+    echo '<th>IP Lookup</th>';
     echo '</tr></thead><tbody>';
 
     //We need to add data on the correct Map columns. The columns are always 0 or 1 or 2 for every repetition
@@ -191,16 +191,10 @@ if (count($rows)) {
         echo '<td>' . $geoplugin->latitude . '</td>';
         echo '<td>' . $geoplugin->longitude . '</td>';
         echo '<td>' . get_host($row['source_ip']) . '</td>';
-        echo '<td class="icon"><a href="http://www.dshield.org/ipinfo.html?ip=' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/dshield.ico"/></a></td>';
-        echo '<td class="icon"><a href="http://www.ipvoid.com/scan/' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/ipvoid.png"/></a></td>';
-        echo '<td class="icon"><a href="http://www.robtex.com/ip/' . $row['source_ip'] . '.html" target="_blank"><img class=icon" src="images/robtex.ico"/></a></td>';
-        echo '<td class="icon"><a href="http://www.fortiguard.com/ip_rep/index.php?data=' . $row['ip'] . '&lookup=Lookup" target="_blank"><img class="icon" src="images/fortiguard.ico"/></a></td>';
-        echo '<td class="icon"><a href="http://labs.alienvault.com/labs/index.php/projects/open-source-ip-reputation-portal/information-about-ip/?ip=' . $row['ip'] . '" target="_blank"><img class="icon" src="images/alienvault.ico"/></a></td>';
-        echo '<td class="icon"><a href="http://www.reputationauthority.org/lookup.php?ip=' . $row['ip'] . '" target="_blank"><img class="icon" src="images/watchguard.ico"/></a></td>';
-        echo '<td class="icon"><a href="http://www.mcafee.com/threat-intelligence/ip/default.aspx?ip=' . $row['ip'] . '" target="_blank"><img class="icon" src="images/mcafee.ico"/></a></td>';
-        echo '<td class="icon"><a href="http://www.ip-adress.com/ip_tracer/' . $row['ip'] . '" target="_blank"><img class="icon" src="images/ip_tracer.png"/></a></td>';
-        echo '<td class="icon"><a href="https://www.virustotal.com/en/ip-address/' . $row['ip'] . '/information/" target="_blank"><img class="icon" src="images/virustotal.ico"/></a></td>';
-        echo '</tr>';
+        echo '<td><a href="http://www.dshield.org/ipinfo.html?ip=' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/dshield.ico"/></a>'
+        . '<a href="http://www.ipvoid.com/scan/' . $row['source_ip'] . '" target="_blank"><img class="icon" src="images/ipvoid.png"/></a>'
+        . '<a href="http://www.robtex.com/ip/' . $row['source_ip'] . '.html" target="_blank"><img class=icon" src="images/robtex.ico"/></a>'
+        echo '</td></tr>';
 
         //Lastly, we increase the index used by maps to indicate the next row,
         //and the dummy counter that indicates the next IP index (out of 10)
@@ -241,7 +235,7 @@ if (count($rows)) {
     echo '<br/><hr /><br />';
 
     //Lastly, we prepare the data for the Intesity Map
-    $db_query_map = "SELECT country, SUM(counter)
+    $db_query = "SELECT country, SUM(counter)
       FROM temp_ip
       GROUP BY country
       ORDER BY SUM(counter) DESC";
